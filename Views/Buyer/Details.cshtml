@@ -1,0 +1,21 @@
+﻿@model Project.Models.Car
+
+@{
+    ViewBag.Title = "Car Details";
+}
+
+<h2>@Model.Brand @Model.Model - @Model.Year</h2>
+
+<ul class="list-group">
+    <li class="list-group-item"><b>Brand:</b> @Model.Brand</li>
+    <li class="list-group-item"><b>Model:</b> @Model.Model</li>
+    <li class="list-group-item"><b>Year:</b> @Model.Year</li>
+    <li class="list-group-item"><b>Price:</b> ₹@Model.Price</li>
+    <li class="list-group-item"><b>Mileage:</b> @Model.Mileage km/l</li>
+    <li class="list-group-item"><b>Fuel Type:</b> @Model.Fuel_type</li>
+    <li class="list-group-item"><b>Transmission:</b> @Model.Transmission</li>
+</ul>
+
+<p>
+    @Html.ActionLink("Back to Cars", "Index")
+</p>

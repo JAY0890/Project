@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/ViewPage1.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <h2 class="text-center mb-4">THE GO CARS</h2>
+            <h2 class="text-center mb-4" style="font-size: 1.0rem;">Login Page</h2>
+
+
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger text-center">@ViewBag.ErrorMessage</div>
+            }
+
+            @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group row mb-3">
+                    @Html.Label("Email", htmlAttributes: new { @class = "col-sm-3 col-form-label text-right" })
+                    <div class="col-sm-9">
+                        @Html.TextBox("Email", null, new { @class = "form-control", placeholder = "Enter your email" })
+                    </div>
+                </div>
+
+                <div class="form-group row mb-3">
+                    @Html.Label("Password", htmlAttributes: new { @class = "col-sm-3 col-form-label text-right" })
+                    <div class="col-sm-9">
+                        @Html.Password("Password", null, new { @class = "form-control", placeholder = "Enter your password" })
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-sm-12 text-center">
+                        <input type="submit" value="Login" class="btn btn-primary" />
+                    </div>
+                </div>
+
+                <p class="text-center text-muted">
+                    Don't have an account?
+                    <a href="@Url.Action("Registration", "User")" class="text-primary">Create here</a>
+                </p>
+            }
+        </div>
+    </div>
+</div>

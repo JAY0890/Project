@@ -1,0 +1,33 @@
+﻿@model Project.Models.Car
+
+@{
+    ViewBag.Title = "Car Details";
+}
+
+<h2>Car Details</h2>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Brand</dt>
+        <dd>@Model.Brand</dd>
+        <dt>Model</dt>
+        <dd>@Model.Model</dd>
+        <dt>Year</dt>
+        <dd>@Model.Year</dd>
+        <dt>Price</dt>
+        <dd>@Model.Price</dd>
+        <dt>Mileage</dt>
+        <dd>@Model.Mileage</dd>
+        <dt>Fuel Type</dt>
+        <dd>@Model.Fuel_type</dd>
+        <dt>Transmission</dt>
+        <dd>@Model.Transmission</dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

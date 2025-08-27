@@ -14,7 +14,7 @@ namespace Project.Controllers
         // Helper method to get logged-in user id
         private int GetCurrentUserId()
         {
-            // Assuming you store user id in session after login
+            //store user id in session after login
             return (int)Session["UserId"];
         }
 

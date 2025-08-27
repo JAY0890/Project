@@ -2,43 +2,63 @@
 
 @{
     ViewBag.Title = "My Cars";
+    Layout = "~/Views/Shared/Argon.cshtml";
 }
 
-<h2>My Cars</h2>
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>My Cars</h2>
+        <a href="@Url.Action("Create", "Seller")" class="btn btn-primary btn-sm">Create New Car</a>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New Car", "Create", null, new { @class = "btn btn-primary" })
-</p>
-
-<table class="table table-striped">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.Name)</th>
-        <th>@Html.DisplayNameFor(model => model.Brand)</th>
-        <th>@Html.DisplayNameFor(model => model.Model)</th>
-        <th>@Html.DisplayNameFor(model => model.Year)</th>
-        <th>@Html.DisplayNameFor(model => model.Price)</th>
-        <th>@Html.DisplayNameFor(model => model.Mileage)</th>
-        <th>@Html.DisplayNameFor(model => model.Fuel_type)</th>
-        <th>@Html.DisplayNameFor(model => model.Transmission)</th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@Html.DisplayFor(m => item.Name)</td>
-            <td>@Html.DisplayFor(m => item.Brand)</td>
-            <td>@Html.DisplayFor(m => item.Model)</td>
-            <td>@Html.DisplayFor(m => item.Year)</td>
-            <td>@Html.DisplayFor(m => item.Price)</td>
-            <td>@Html.DisplayFor(m => item.Mileage)</td>
-            <td>@Html.DisplayFor(m => item.Fuel_type)</td>
-            <td>@Html.DisplayFor(m => item.Transmission)</td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-</table>
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Name)</th>
+                            <th>@Html.DisplayNameFor(model => model.Brand)</th>
+                            <th>@Html.DisplayNameFor(model => model.Model)</th>
+                            <th>@Html.DisplayNameFor(model => model.Year)</th>
+                            <th>@Html.DisplayNameFor(model => model.Price)</th>
+                            <th>@Html.DisplayNameFor(model => model.Mileage)</th>
+                            <th>@Html.DisplayNameFor(model => model.Fuel_type)</th>
+                            <th>@Html.DisplayNameFor(model => model.Transmission)</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(m => item.Name)</td>
+                                    <td>@Html.DisplayFor(m => item.Brand)</td>
+                                    <td>@Html.DisplayFor(m => item.Model)</td>
+                                    <td>@Html.DisplayFor(m => item.Year)</td>
+                                    <td>@Html.DisplayFor(m => item.Price)</td>
+                                    <td>@Html.DisplayFor(m => item.Mileage)</td>
+                                    <td>@Html.DisplayFor(m => item.Fuel_type)</td>
+                                    <td>@Html.DisplayFor(m => item.Transmission)</td>
+                                    <td class="text-end">
+                                        <a href="@Url.Action("Details", "Seller", new { id = item.Id })" class="btn btn-sm btn-info">Details</a>
+                                        <a href="@Url.Action("Edit", "Seller", new { id = item.Id })" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="@Url.Action("Delete", "Seller", new { id = item.Id })" class="btn btn-sm btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="9" class="text-center">No cars found.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

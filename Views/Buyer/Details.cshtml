@@ -2,20 +2,61 @@
 
 @{
     ViewBag.Title = "Car Details";
+    Layout = "~/Views/Shared/Argon.cshtml";
 }
 
-<h2>@Model.Brand @Model.Model - @Model.Year</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
 
-<ul class="list-group">
-    <li class="list-group-item"><b>Brand:</b> @Model.Brand</li>
-    <li class="list-group-item"><b>Model:</b> @Model.Model</li>
-    <li class="list-group-item"><b>Year:</b> @Model.Year</li>
-    <li class="list-group-item"><b>Price:</b> ₹@Model.Price</li>
-    <li class="list-group-item"><b>Mileage:</b> @Model.Mileage km/l</li>
-    <li class="list-group-item"><b>Fuel Type:</b> @Model.Fuel_type</li>
-    <li class="list-group-item"><b>Transmission:</b> @Model.Transmission</li>
-</ul>
+            <div class="card shadow border-0">
+                <div class="card-header bg-transparent">
+                    <h2 class="mb-0 text-center">
+                        @Model.Brand @Model.Model (@Model.Year)
+                    </h2>
+                </div>
+                <div class="card-body">
 
-<p>
-    @Html.ActionLink("Back to Cars", "Index")
-</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Brand:</strong>
+                            <span>@Model.Brand</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Model:</strong>
+                            <span>@Model.Model</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Year:</strong>
+                            <span>@Model.Year</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Price:</strong>
+                            <span>₹@Model.Price</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Mileage:</strong>
+                            <span>@Model.Mileage km/l</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Fuel Type:</strong>
+                            <span>@Model.Fuel_type</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Transmission:</strong>
+                            <span>@Model.Transmission</span>
+                        </li>
+                    </ul>
+
+                    <div class="text-center mt-4">
+                        <a href="@Url.Action("Index", "Buyer")" class="btn btn-primary">
+                            ← Back to Cars
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

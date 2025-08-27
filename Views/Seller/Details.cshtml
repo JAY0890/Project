@@ -2,32 +2,61 @@
 
 @{
     ViewBag.Title = "Car Details";
+    Layout = "~/Views/Shared/Argon.cshtml";
 }
 
-<h2>Car Details</h2>
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-gradient-primary text-white">
+                    <h4 class="mb-0">Car Details</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="mb-3">@Model.Name</h5>
+                    <hr />
 
-<div>
-    <h4>@Model.Name</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Brand</dt>
-        <dd>@Model.Brand</dd>
-        <dt>Model</dt>
-        <dd>@Model.Model</dd>
-        <dt>Year</dt>
-        <dd>@Model.Year</dd>
-        <dt>Price</dt>
-        <dd>@Model.Price</dd>
-        <dt>Mileage</dt>
-        <dd>@Model.Mileage</dd>
-        <dt>Fuel Type</dt>
-        <dd>@Model.Fuel_type</dd>
-        <dt>Transmission</dt>
-        <dd>@Model.Transmission</dd>
-    </dl>
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold">Brand:</div>
+                        <div class="col-sm-8">@Model.Brand</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold">Model:</div>
+                        <div class="col-sm-8">@Model.Model</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold">Year:</div>
+                        <div class="col-sm-8">@Model.Year</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold">Price:</div>
+                        <div class="col-sm-8">@Model.Price</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold">Mileage:</div>
+                        <div class="col-sm-8">@Model.Mileage</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold">Fuel Type:</div>
+                        <div class="col-sm-8">@Model.Fuel_type</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold">Transmission:</div>
+                        <div class="col-sm-8">@Model.Transmission</div>
+                    </div>
+
+                    <div class="mt-4 text-end">
+                        <a href="@Url.Action("Edit", "Buyer", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+                        <a href="@Url.Action("Index", "Buyer")" class="btn btn-secondary ms-2">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

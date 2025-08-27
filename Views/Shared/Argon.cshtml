@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My MVC App</title>
+
+    <!-- CSS from assets -->
+    <link href="~/assets/css/argon-dashboard.min.css" rel="stylesheet" />
+    <link href="~/assets/css/argon-dashboard.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navbar / header -->
+    <header>
+        <!-- your template navbar code -->
+    </header>
+
+    <!-- Page body will render here -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <!-- your template footer code -->
+    </footer>
+
+    <!-- JS from assets -->
+    <!--<script src="~/Assets/js/jquery.min.js"></script>-->
+    <script src="~/assets/js/argon-dashboard.min.js"></script>
+    <script src="~/assets/js/argon-dashboard.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

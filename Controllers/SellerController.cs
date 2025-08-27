@@ -101,14 +101,14 @@ namespace Project.Controllers
         }
 
         // GET: Seller/Delete/5
+        // GET: Seller/Delete/5
         public ActionResult Delete(int id)
         {
-            int userId = GetCurrentUserId();
-            var car = db.Cars.FirstOrDefault(c => c.Id == id && c.User_id == userId);
-
+            var car = db.Cars.Find(id);
             if (car == null)
+            {
                 return HttpNotFound();
-
+            }
             return View(car);
         }
 
@@ -117,15 +117,11 @@ namespace Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            int userId = GetCurrentUserId();
-            var car = db.Cars.FirstOrDefault(c => c.Id == id && c.User_id == userId);
-
-            if (car == null)
-                return HttpNotFound();
-
+            var car = db.Cars.Find(id);
             db.Cars.Remove(car);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
     }
 }

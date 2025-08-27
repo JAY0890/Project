@@ -2,62 +2,83 @@
 
 @{
     ViewBag.Title = "Add New Car";
+    Layout = "~/Views/Shared/Argon.cshtml";
 }
 
-<h2>Add New Car</h2>
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-gradient-primary text-white">
+                    <h4 class="mb-0">Add New Car</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Create", "Seller", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true)
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Name, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })</div>
-        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Brand, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Brand, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Brand, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Brand, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.TextBoxFor(m => m.Brand, new { @class = "form-control" })</div>
-        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Model, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Model, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Model, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Model, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.TextBoxFor(m => m.Model, new { @class = "form-control" })</div>
-        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Year, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Year, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.TextBoxFor(m => m.Year, new { @class = "form-control" })</div>
-        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Price, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Price, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.TextBoxFor(m => m.Price, new { @class = "form-control" })</div>
-        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Mileage, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Mileage, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Mileage, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Mileage, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.TextBoxFor(m => m.Mileage, new { @class = "form-control" })</div>
-        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Fuel_type, new { @class = "form-label" })
+                            @Html.DropDownListFor(m => m.Fuel_type,
+                                new SelectList(new List<string> { "Petrol", "Diesel", "CNG", "Electric", "Hybrid" }),
+                                "Select Fuel Type",
+                                new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Fuel_type, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Fuel_type, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.TextBoxFor(m => m.Fuel_type, new { @class = "form-control" })</div>
-        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Transmission, new { @class = "form-label" })
+                            @Html.DropDownListFor(m => m.Transmission,
+                                new SelectList(new List<string> { "Manual", "Automatic", "AMT", "CVT" }),
+                                "Select Transmission",
+                                new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Transmission, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Transmission, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.TextBoxFor(m => m.Transmission, new { @class = "form-control" })</div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                        <div class="text-end">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                            <a href="@Url.Action("Index", "Seller")" class="btn btn-secondary ms-2">Back to List</a>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
-}
-<p>@Html.ActionLink("Back to List", "Index")</p>
+</div>

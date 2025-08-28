@@ -154,6 +154,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Car.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarImage.cs">
+      <DependentUpon>Car.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>Car.tt</DependentUpon>
     </Compile>

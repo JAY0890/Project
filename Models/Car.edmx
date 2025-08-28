@@ -20,6 +20,15 @@
           <Property Name="Fuel_type" Type="nvarchar" MaxLength="50" />
           <Property Name="Transmission" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CarImages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarId" Type="int" Nullable="false" />
+          <Property Name="Filename" Type="nvarchar" MaxLength="200" />
+          <Property Name="Image" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -43,12 +52,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="To_cars">
+          <End Role="Car" Type="Self.Car" Multiplicity="1" />
+          <End Role="CarImages" Type="Self.CarImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarImages">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CarModelStoreContainer">
           <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarImages" EntityType="Self.CarImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="Car_User" Association="Self.Car_User">
             <End Role="User" EntitySet="User" />
             <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="To_cars" Association="Self.To_cars">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="CarImages" EntitySet="CarImages" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -70,6 +96,7 @@
           <Property Name="Fuel_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Transmission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="Self.Car_User" FromRole="Car" ToRole="User" />
+          <NavigationProperty Name="CarImages" Relationship="CarModel.To_cars" FromRole="Car" ToRole="CarImage" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -102,7 +129,34 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Car" EntitySet="Cars" />
           </AssociationSet>
+          <EntitySet Name="CarImages" EntityType="CarModel.CarImage" />
+          <AssociationSet Name="To_cars" Association="CarModel.To_cars">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="CarImage" EntitySet="CarImages" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CarImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarId" Type="Int32" Nullable="false" />
+          <Property Name="Filename" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Car" Relationship="CarModel.To_cars" FromRole="CarImage" ToRole="Car" />
+        </EntityType>
+        <Association Name="To_cars">
+          <End Type="CarModel.Car" Role="Car" Multiplicity="1" />
+          <End Type="CarModel.CarImage" Role="CarImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarImage">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -134,6 +188,16 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarImages">
+            <EntityTypeMapping TypeName="CarModel.CarImage">
+              <MappingFragment StoreEntitySet="CarImages">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

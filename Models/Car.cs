@@ -15,38 +15,53 @@ namespace Project.Models
 
     public partial class Car
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Car()
+        {
+            this.CarImages = new HashSet<CarImage>();
+        }
+
         public int Id { get; set; }
+
 
         [Required(ErrorMessage = "Car Name is required")]
         public string Name { get; set; }
 
+
         public Nullable<int> User_id { get; set; }
 
         [Required(ErrorMessage = "Model is required")]
-        public string Model { get; set; }
+         public string Model { get; set; }
+
 
         [Required(ErrorMessage = "Brand is required")]
         public string Brand { get; set; }
+
 
         [Required(ErrorMessage = "Year is required")]
         [Range(1900, 2100, ErrorMessage = "Enter a valid year")]
         public Nullable<int> Year { get; set; }
 
+
         [Required(ErrorMessage = "Price is required")]
         [Range(1, int.MaxValue, ErrorMessage = "Price must be greater than 0")]
         public Nullable<int> Price { get; set; }
+
 
         [Required(ErrorMessage = "Mileage is required")]
         [Range(0, double.MaxValue, ErrorMessage = "Enter valid mileage")]
         public Nullable<double> Mileage { get; set; }
 
+
         [Required(ErrorMessage = "Fuel Type is required")]
         public string Fuel_type { get; set; }
+
 
         [Required(ErrorMessage = "Transmission is required")]
         public string Transmission { get; set; }
 
-
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarImage> CarImages { get; set; }
     }
 }

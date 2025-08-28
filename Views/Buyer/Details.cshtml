@@ -7,16 +7,50 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
 
             <div class="card shadow border-0">
-                <div class="card-header bg-transparent">
-                    <h2 class="mb-0 text-center">
+                <div class="card-header bg-transparent text-center">
+                    <h2 class="mb-0">
                         @Model.Brand @Model.Model (@Model.Year)
                     </h2>
                 </div>
                 <div class="card-body">
 
+                    <!-- Image Carousel -->
+                    @if (Model.CarImages != null && Model.CarImages.Any())
+                    {
+                        <div id="carImagesCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                @{
+                                    var first = true;
+                                    foreach (var img in Model.CarImages)
+                                    {
+                                        <div class="carousel-item @(first ? "active" : "")">
+                                            <img src="@Url.Action("GetImage", "Buyer", new { id = img.Id })"
+                                                 class="d-block w-100"
+                                                 style="max-height: 400px; object-fit: contain;" />
+                                        </div>;
+                                        first = false;
+                                    }
+                                }
+                            </div>
+                            <a class="carousel-control-prev" href="#carImagesCarousel" role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carImagesCarousel" role="button" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center text-muted">No images available for this car.</p>
+                    }
+
+                    <!-- Car Details -->
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Brand:</strong>
@@ -32,7 +66,7 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Price:</strong>
-                            <span>₹@Model.Price</span>
+                            <span>₹@string.Format("{0:N0}", Model.Price)</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Mileage:</strong>

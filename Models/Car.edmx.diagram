@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="CarModel.Car" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="CarModel.User" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="CarModel.Car_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CarModel.CarImage" Width="1.5" PointX="5.25" PointY="1.625" />
+        <AssociationConnector Association="CarModel.To_cars" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

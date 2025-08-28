@@ -30,7 +30,7 @@
                         <dd class="col-sm-8">@Model.Year</dd>
 
                         <dt class="col-sm-4">Price</dt>
-                        <dd class="col-sm-8">@Model.Price</dd>
+                        <dd class="col-sm-8">₹@Model.Price</dd>
 
                         <dt class="col-sm-4">Fuel Type</dt>
                         <dd class="col-sm-8">@Model.Fuel_type</dd>
@@ -38,6 +38,25 @@
                         <dt class="col-sm-4">Transmission</dt>
                         <dd class="col-sm-8">@Model.Transmission</dd>
                     </dl>
+
+                    <!-- Show images if available -->
+                    @if (Model.CarImages != null && Model.CarImages.Any())
+                    {
+                        <div class="row mt-3">
+                            @foreach (var img in Model.CarImages)
+                            {
+                                <div class="col-md-4 mb-3">
+                                    <img src="@Url.Action("GetImage", "Buyer", new { id = img.Id })"
+                                         class="img-fluid rounded shadow-sm border"
+                                         alt="Car Image" />
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No images uploaded for this car.</p>
+                    }
 
                     @using (Html.BeginForm("Delete", "Seller", FormMethod.Post))
                     {

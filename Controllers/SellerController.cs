@@ -1,6 +1,7 @@
 ﻿using Project.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -47,17 +48,46 @@ namespace Project.Controllers
         // POST: Seller/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Car car)
+        public ActionResult Create(Car car, IEnumerable<HttpPostedFileBase> files)
         {
+            // Validate uploaded files first (before inserting car)
+            var validFiles = files?.Where(f => f != null && f.ContentLength > 0).ToList() ?? new List<HttpPostedFileBase>();
+            if (validFiles.Count < 1 || validFiles.Count > 5)
+            {
+                ModelState.AddModelError("files", "Please upload between 1 and 5 images.");
+                return View(car);
+            }
+
             if (ModelState.IsValid)
             {
-                car.User_id = GetCurrentUserId(); // Set owner
+                car.User_id = GetCurrentUserId();
                 db.Cars.Add(car);
+                db.SaveChanges();  // save car to generate CarId
+
+                // Save images
+                foreach (var file in validFiles)
+                {
+                    using (var br = new System.IO.BinaryReader(file.InputStream))
+                    {
+                        var carImg = new CarImage
+                        {
+                            CarId = car.Id,
+                            Filename = Path.GetFileName(file.FileName),
+                            Image = br.ReadBytes(file.ContentLength)
+                        };
+                        db.CarImages.Add(carImg);
+                    }
+                }
+
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             return View(car);
         }
+
+
 
         // GET: Seller/Edit/5
         public ActionResult Edit(int id)
@@ -117,9 +147,24 @@ namespace Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var car = db.Cars.Find(id);
+            int userId = GetCurrentUserId();
+
+            var car = db.Cars.FirstOrDefault(c => c.Id == id && c.User_id == userId);
+
+            if (car == null)
+                return HttpNotFound();
+
+            // Remove related images first
+            var images = db.CarImages.Where(i => i.CarId == car.Id).ToList();
+            foreach (var img in images)
+            {
+                db.CarImages.Remove(img);
+            }
+
+            // Now remove the car
             db.Cars.Remove(car);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

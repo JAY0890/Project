@@ -27,5 +27,6 @@ namespace Project.Models
     
         public virtual DbSet<Car> Cars { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<CarImage> CarImages { get; set; }
     }
 }
